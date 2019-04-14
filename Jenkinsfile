@@ -43,7 +43,7 @@ pipeline {
                 milestone(1)
                 withCredentials([usernamePassword(credentialsId: 'web_server_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
                     script {
-                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$production_server1 \"docker pull garfieldd/my-train-time\""
+                        sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$production_server1 \"docker pull garfieldd/my-train-time:${env.BUILD_NUMBER}\""
                         try {
                             sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$production_server1 \"docker stop my-train-time\""
                             sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@$production_server1 \"docker rm my-train-time\""
